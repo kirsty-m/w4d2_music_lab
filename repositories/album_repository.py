@@ -1,24 +1,21 @@
 import pdb
 from db.run_sql import run_sql
 from models.album import Album
-from repositories.artist_repository import artist_repository
+
+
+import repositories.artist_repository as artist_repository
 
 def save(album):
-    sql = "INSERT INTO albums (title, genre, artist_id) VALUES (%s, %s, %s,) RETURNING *"
+    sql = "INSERT INTO albums (title, genre, artist_id) VALUES (%s, %s, %s) RETURNING *"
     values = [album.title, album.genre, album.artist.id]
     result = run_sql(sql, values)
-    id = result[0]['id']
+    id = result[0]["id"]
     album.id = id
     return album
 
 def delete_all():
     sql = "DELETE FROM albums"
     run_sql(sql)
-
-# def delete(id):
-#     sql = "DELETE FROM albums WHERE id = %s"
-#     values = [id]
-
 
 def select(id):
     album = None

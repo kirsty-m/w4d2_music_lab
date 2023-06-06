@@ -6,7 +6,7 @@ def save(artist):
     sql = "INSERT INTO artists (name) VALUES (%s) RETURNING *"
     values = [artist.name]
     result = run_sql(sql, values)
-    id = result[0]['id']
+    id = result[0]["id"]
     artist.id = id
     return artist
 
@@ -18,7 +18,7 @@ def select(id):
     artist = None
     sql = "SELECT * FROM artists WHERE id = %s"
     values = [id]
-    results = run_sql(sql, values)[0]
+    result = run_sql(sql, values)[0]
 
     if result is not None:
         artist = Artist(result['name'])
@@ -27,10 +27,10 @@ def select(id):
 def select_all():
     artists = []
     sql = "SELECT * FROM artists"
-    results = run_sql(sql)
+    result = run_sql(sql)
 
-    for row in results:
+    for row in result:
         artist = Artist(row['name'])
-        artist.append(artist)
+        artists.append(artist)
     return artists
 
